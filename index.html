@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAG Dr. medic Alexandra Elias & Dr. medic Sam Elias — Mobile Anästhesie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ECEEE6;
+    --bg-panel: #E1E6DA;
+    --ink: #15241F;
+    --ink-soft: #3E5049;
+    --teal: #0D3B36;
+    --teal-dark: #082421;
+    --gold: #B3873C;
+    --gold-dark: #8F6C2E;
+    --line: #C7CBB5;
+    --paper: #F6F5EE;
+    --display: 'Fraunces', serif;
+    --body: 'Public Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  img, svg { display: block; max-width: 100%; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Nav ---------- */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(236, 238, 230, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .brand {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    color: var(--teal-dark);
+  }
+  .brand span { color: var(--gold-dark); }
+  nav.links { display: flex; gap: 28px; }
+  nav.links a {
+    text-decoration: none;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible { color: var(--gold-dark); }
+  .nav-cta {
+    background: var(--teal-dark);
+    color: var(--paper) !important;
+    padding: 9px 18px;
+    border-radius: 3px;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--teal); }
+  #menu-toggle { display: none; }
+  .menu-btn { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--teal-dark);
+    color: var(--paper);
+    padding: 110px 0 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: -10%;
+    top: -20%;
+    width: 620px;
+    height: 620px;
+    border: 1px solid rgba(246,245,238,0.10);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    top: 12%;
+    width: 380px;
+    height: 380px;
+    border: 1px solid rgba(246,245,238,0.14);
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #D9C08A;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5vw, 3.8rem);
+    line-height: 1.08;
+    max-width: 15ch;
+    color: var(--paper);
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: #E7C888;
+  }
+  .hero p.lead {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: 1.08rem;
+    color: #C7D3CD;
+  }
+  .hero-actions {
+    margin-top: 38px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.94rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--gold); color: var(--teal-dark); }
+  .btn-primary:hover { background: #C79A4E; }
+  .btn-ghost { border-color: rgba(246,245,238,0.35); color: var(--paper); }
+  .btn-ghost:hover { border-color: var(--paper); background: rgba(246,245,238,0.06); }
+
+  /* ---------- Route / signature element ---------- */
+  .route {
+    background: var(--paper);
+    padding: 70px 0 90px;
+    border-bottom: 1px solid var(--line);
+  }
+  .route-heading {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .route-sub {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: 48px;
+    font-size: 0.98rem;
+  }
+  .route-line-wrap { position: relative; padding-top: 10px; }
+  .route-svg { width: 100%; height: 3px; overflow: visible; }
+  .route-svg path {
+    stroke: var(--line);
+    stroke-width: 2;
+  }
+  .route-svg path.draw {
+    stroke: var(--gold);
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 1.8s ease forwards;
+    animation-play-state: paused;
+  }
+  .route-svg.in-view path.draw { animation-play-state: running; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .waypoints {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: -6px;
+  }
+  .waypoint { position: relative; padding-top: 30px; }
+  .waypoint::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--gold);
+  }
+  .waypoint .wp-time {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--gold-dark);
+    letter-spacing: 0.04em;
+  }
+  .waypoint h4 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin: 6px 0 6px;
+    color: var(--teal-dark);
+  }
+  .waypoint p { font-size: 0.88rem; color: var(--ink-soft); }
+
+  /* ---------- Section generic ---------- */
+  section { padding: 90px 0; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+  }
+  h2.section-title {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    color: var(--teal-dark);
+    max-width: 20ch;
+    margin-bottom: 20px;
+  }
+  .section-intro {
+    color: var(--ink-soft);
+    max-width: 62ch;
+    font-size: 1rem;
+    margin-bottom: 52px;
+  }
+
+  /* ---------- Team ---------- */
+  .team { background: var(--bg-panel); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .team-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px;
+  }
+  .team-card .avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--teal-dark);
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-size: 1.2rem;
+    margin-bottom: 22px;
+  }
+  .team-card h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--teal-dark);
+  }
+  .team-card .role {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--gold-dark);
+    margin: 6px 0 16px;
+  }
+  .team-card p.bio { font-size: 0.94rem; color: var(--ink-soft); }
+  .lang-tags { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+  .lang-tags span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    border: 1px solid var(--line);
+    padding: 3px 9px;
+    border-radius: 20px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Leistungen ---------- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .service-card {
+    background: var(--paper);
+    padding: 34px 30px;
+  }
+  .service-card .num {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--gold-dark);
+  }
+  .service-card h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.12rem;
+    margin: 12px 0 10px;
+    color: var(--teal-dark);
+  }
+  .service-card p { font-size: 0.9rem; color: var(--ink-soft); }
+
+  .service-note {
+    margin-top: 36px;
+    padding: 22px 26px;
+    border-left: 3px solid var(--gold);
+    background: var(--bg-panel);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Fragebogen ---------- */
+  .fragebogen { background: var(--teal-dark); color: var(--paper); }
+  .fragebogen .section-label { color: #D9C08A; }
+  .fragebogen h2.section-title { color: var(--paper); }
+  .fragebogen .section-intro { color: #C7D3CD; }
+  .fb-box {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    background: rgba(246,245,238,0.05);
+    border: 1px solid rgba(246,245,238,0.18);
+    border-radius: 6px;
+    padding: 40px;
+    flex-wrap: wrap;
+  }
+  .fb-icon {
+    flex-shrink: 0;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fb-text { flex: 1; min-width: 240px; }
+  .fb-text h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .fb-text p { color: #C7D3CD; font-size: 0.94rem; max-width: 55ch; }
+  .fb-steps {
+    margin-top: 18px;
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: #D9C08A;
+  }
+
+  /* ---------- Kontakt ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .info-block { margin-bottom: 28px; }
+  .info-block .label {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 6px;
+  }
+  .info-block .val { font-size: 1rem; color: var(--ink); }
+
+  form.contact-form { display: flex; flex-direction: column; gap: 16px; }
+  form.contact-form label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+    margin-bottom: 6px;
+    display: block;
+  }
+  form.contact-form input,
+  form.contact-form select,
+  form.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--paper);
+    font-family: var(--body);
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  form.contact-form input:focus,
+  form.contact-form select:focus,
+  form.contact-form textarea:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+  form.contact-form textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-note {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-top: -4px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--teal-dark);
+    color: #A9B8B2;
+    padding: 46px 0 30px;
+    font-size: 0.86rem;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(246,245,238,0.14);
+    margin-bottom: 22px;
+  }
+  footer a { text-decoration: none; color: #C7D3CD; }
+  footer a:hover { color: var(--gold); }
+  .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    nav.links { display: none; }
+    .team-grid, .contact-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .waypoints { grid-template-columns: 1fr 1fr; row-gap: 30px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .route-svg path.draw { animation: none; stroke-dashoffset: 0; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">Dr. Elias <span>&</span> Elias</div>
+    <nav class="links">
+      <a href="#start">Startseite</a>
+      <a href="#team">Über uns</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#fragebogen">Fragebogen</a>
+      <a href="#kontakt" class="nav-cta">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="start">
+  <div class="wrap">
+    <div class="hero-eyebrow">BAG Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias</div>
+    <h1>Anästhesie, die <em>zum Eingriff kommt</em> — nicht umgekehrt</h1>
+    <p class="lead">Wir begleiten operierende Kolleginnen und Kollegen direkt vor Ort — mit voller anästhesiologischer Versorgung, ohne dass Patienten in eine fremde Klinik überwiesen werden müssen.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn btn-primary">Anfrage stellen</a>
+      <a href="#leistungen" class="btn btn-ghost">Leistungen ansehen</a>
+    </div>
+  </div>
+</section>
+
+<section class="route">
+  <div class="wrap">
+    <div class="route-heading">So läuft eine Zusammenarbeit ab</div>
+    <p class="route-sub">Vom ersten Kontakt bis zur Nachsorge — wir reisen zu Ihrer Praxis oder Ihrem OP-Standort und bringen die komplette Ausstattung mit.</p>
+    <div class="route-line-wrap">
+      <svg class="route-svg" viewBox="0 0 1000 3" preserveAspectRatio="none">
+        <path d="M0,1.5 L1000,1.5" />
+        <path class="draw" d="M0,1.5 L1000,1.5" />
+      </svg>
+      <div class="waypoints">
+        <div class="waypoint">
+          <div class="wp-time">Schritt 1</div>
+          <h4>Anfrage</h4>
+          <p>Sie melden den geplanten Eingriff und Termin — wir prüfen Machbarkeit und Anästhesieform.</p>
+        </div>
+        <div class="waypoint">
+          <div class="wp-time">Schritt 2</div>
+          <h4>Vorgespräch</h4>
+          <p>Anamnese und Aufklärung, inklusive Anästhesie-Fragebogen für den Patienten.</p>
+        </div>
+        <div class="waypoint">
+          <div class="wp-time">Schritt 3</div>
+          <h4>Vor Ort</h4>
+          <p>Wir bringen Monitoring und Ausrüstung mit und übernehmen die Anästhesie während des Eingriffs.</p>
+        </div>
+        <div class="waypoint">
+          <div class="wp-time">Schritt 4</div>
+          <h4>Nachsorge</h4>
+          <p>Überwachung im Aufwachraum vor Ort sowie Abrechnung nach GOÄ.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="wrap">
+    <div class="section-label">Über uns</div>
+    <h2 class="section-title">Zwei Fachärzte, ein mobiles Team</h2>
+    <p class="section-intro">Die Berufsausübungsgemeinschaft Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias bündelt anästhesiologische Expertise, die dorthin kommt, wo operiert wird.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">AE</div>
+        <h3>Dr. medic Alexandra Elias</h3>
+        <div class="role">Fachärztin für Anästhesiologie</div>
+        <p class="bio">Verantwortlich für Anästhesieplanung und Patientenaufklärung im mobilen Praxisbetrieb.</p>
+      </div>
+      <div class="team-card">
+        <div class="avatar">SE</div>
+        <h3>Dr. medic Sam Elias</h3>
+        <div class="role">Facharzt für Anästhesiologie</div>
+        <p class="bio">Zuständig für Durchführung der Anästhesie vor Ort sowie Koordination mit den zuweisenden Praxen.</p>
+        <div class="lang-tags">
+          <span>Deutsch</span><span>Română</span><span>English</span><span>العربية</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="leistungen" id="leistungen">
+  <div class="wrap">
+    <div class="section-label">Leistungen</div>
+    <h2 class="section-title">Mobile Anästhesie für zuweisende Praxen</h2>
+    <p class="section-intro">Wir übernehmen die anästhesiologische Versorgung direkt am Ort des Eingriffs — abgestimmt auf die jeweilige Praxis und den geplanten Eingriff.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="num">01</div>
+        <h3>Allgemeinanästhesie</h3>
+        <p>Vollnarkose für ambulante Eingriffe, inklusive vollständigem Monitoring vor Ort.</p>
+      </div>
+      <div class="service-card">
+        <div class="num">02</div>
+        <h3>Sedierung</h3>
+        <p>Analgosedierung für kürzere oder weniger invasive Eingriffe.</p>
+      </div>
+      <div class="service-card">
+        <div class="num">03</div>
+        <h3>Regionalanästhesie</h3>
+        <p>Örtliche Betäubungsverfahren als Alternative oder Ergänzung zur Vollnarkose.</p>
+      </div>
+      <div class="service-card">
+        <div class="num">04</div>
+        <h3>Perioperative Betreuung</h3>
+        <p>Aufklärung, Vorbereitung und Überwachung im Aufwachraum vor Ort.</p>
+      </div>
+      <div class="service-card">
+        <div class="num">05</div>
+        <h3>Koordination mit der Praxis</h3>
+        <p>Terminabstimmung und Ablauforganisation gemeinsam mit dem operierenden Team.</p>
+      </div>
+      <div class="service-card">
+        <div class="num">06</div>
+        <h3>Abrechnung nach GOÄ</h3>
+        <p>Transparente privatärztliche Abrechnung nach der Gebührenordnung für Ärzte.</p>
+      </div>
+    </div>
+    <div class="fb-box" style="background: var(--bg-panel); border-color: var(--line); margin-top: 36px;">
+      <div class="fb-icon" style="border-color: var(--gold-dark);">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8F6C2E" stroke-width="1.6">
+          <path d="M12 21s-7-4.4-9.5-9C1 8.4 2.8 5 6.2 5c2 0 3.3 1.1 3.8 2 .5-.9 1.8-2 3.8-2 3.4 0 5.2 3.4 3.7 7-2.5 4.6-9.5 9-9.5 9z"/>
+        </svg>
+      </div>
+      <div class="fb-text">
+        <h3 style="color: var(--teal-dark);">Spezialisiert auf Angstpatienten</h3>
+        <p style="color: var(--ink-soft);">Ein Teil unserer Arbeit ist die Begleitung von Patient*innen mit ausgeprägter Angst vor Narkose oder Eingriff. Im Vorgespräch nehmen wir uns dafür bewusst mehr Zeit — für ausführliche Aufklärung, ein ruhiges Einleiten der Anästhesie und individuelle Betreuung vor Ort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fragebogen" id="fragebogen">
+  <div class="wrap">
+    <div class="section-label">Vor Ihrem Termin</div>
+    <h2 class="section-title">Anästhesie-Fragebogen</h2>
+    <p class="section-intro">Damit wir Sie sicher betreuen können, füllen Sie vor dem Eingriff einen Anästhesie-Fragebogen aus — er bildet die Grundlage für das Vorgespräch.</p>
+    <div class="fb-box">
+      <div class="fb-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E7C888" stroke-width="1.6">
+          <path d="M8 4h8a2 2 0 0 1 2 2v13l-6-3-6 3V6a2 2 0 0 1 2-2z"/>
+          <path d="M9 9h6M9 13h4"/>
+        </svg>
+      </div>
+      <div class="fb-text">
+        <h3>Aufklärungs- und Anamnesebogen</h3>
+        <p>Der Bogen informiert über Ablauf, Verhaltensregeln und Risiken der ambulanten Anästhesie und erfasst Vorerkrankungen, Medikamente und bisherige Erfahrungen mit Narkosen. Bitte ausgefüllt zum Vorgespräch mitbringen.</p>
+        <div class="fb-steps">
+          <span>PDF herunterladen</span>
+          <span>Ausfüllen</span>
+          <span>Zum Vorgespräch mitbringen</span>
+        </div>
+      </div>
+      <a href="Anaesthesie-Fragebogen.pdf" download class="btn btn-primary">Fragebogen herunterladen</a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <div class="section-label">Kontakt</div>
+    <h2 class="section-title">Anfrage für eine Zusammenarbeit</h2>
+    <p class="section-intro">Schreiben Sie uns — als zuweisende Praxis oder mit einer allgemeinen Frage zu einem geplanten Eingriff.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="info-block">
+          <div class="label">Praxis</div>
+          <div class="val">BAG Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias</div>
+        </div>
+        <div class="info-block">
+          <div class="label">Sprachen</div>
+          <div class="val">Deutsch, Română, English, العربية</div>
+        </div>
+        <div class="info-block">
+          <div class="label">Abrechnung</div>
+          <div class="val">Privatärztlich nach GOÄ</div>
+        </div>
+      </div>
+      <form class="contact-form" action="https://formsubmit.co/dr.s.elias@outlook.com" method="POST">
+        <input type="hidden" name="_subject" value="Neue Anfrage über die Praxis-Website">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <div class="form-row">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div>
+            <label for="praxis">Praxis / Institution</label>
+            <input id="praxis" name="praxis" type="text">
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="email">E-Mail</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div>
+            <label for="telefon">Telefon</label>
+            <input id="telefon" name="telefon" type="tel">
+          </div>
+        </div>
+        <div>
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" name="nachricht" required placeholder="z. B. geplanter Eingriff, gewünschter Termin, Ort"></textarea>
+        </div>
+        <p class="form-note">Anfragen gehen direkt per E-Mail ein. Beim allerersten Versand kommt einmalig eine Bestätigungs-E-Mail von FormSubmit — dort auf den Aktivierungslink klicken, danach funktioniert das Formular dauerhaft.</p>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start; border: none; cursor: pointer;">Anfrage senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="impressum" style="background: var(--bg-panel); padding: 70px 0;">
+  <div class="wrap">
+    <div class="section-label">Rechtliches</div>
+    <h2 class="section-title" style="font-size: 1.5rem;">Impressum</h2>
+    <div style="max-width: 62ch; font-size: 0.94rem; color: var(--ink-soft); line-height: 1.8;">
+      <p><strong style="color: var(--teal-dark);">Angaben gemäß § 5 TMG</strong><br>
+      BAG Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias<br>
+      Praxis für Anästhesiologie<br>
+      Zum Ludwigstal 25<br>
+      45527 Hattingen</p>
+      <p><strong style="color: var(--teal-dark);">Kontakt</strong><br>
+      Telefon: 0162 90 268 70<br>
+      E-Mail: Dr.S.Elias@outlook.com</p>
+      <p><strong style="color: var(--teal-dark);">Berufsbezeichnung und berufsrechtliche Regelungen</strong><br>
+      Fachärztin/Facharzt für Anästhesiologie, verliehen in Deutschland.<br>
+      Zuständige Kammer: [Ärztekammer Westfalen-Lippe — bitte prüfen/ergänzen]<br>
+      Es gelten die Berufsordnung sowie die Gebührenordnung für Ärzte (GOÄ).</p>
+      <p><strong style="color: var(--teal-dark);">Umsatzsteuer-ID / Steuernummer</strong><br>
+      32350024446</p>
+      <p><strong style="color: var(--teal-dark);">Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV</strong><br>
+      Dr. medic Alexandra Elias, Dr. medic Sam Elias (Anschrift wie oben)</p>
+      <p style="font-size: 0.84rem; opacity: 0.85;">Hinweis: Die zuständige Kammer ist als [Ärztekammer Westfalen-Lippe] eingetragen — bitte bestätigen. Im Zweifel vor Veröffentlichung von einer Rechtsberatung oder der zuständigen Ärztekammer prüfen lassen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="datenschutz" style="padding: 70px 0;">
+  <div class="wrap">
+    <div class="section-label">Rechtliches</div>
+    <h2 class="section-title" style="font-size: 1.5rem;">Datenschutzerklärung</h2>
+    <div style="max-width: 62ch; font-size: 0.94rem; color: var(--ink-soft); line-height: 1.8;">
+      <p><strong style="color: var(--teal-dark);">Verantwortliche Stelle</strong><br>
+      BAG Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias, Zum Ludwigstal 25, 45527 Hattingen, Dr.S.Elias@outlook.com</p>
+      <p><strong style="color: var(--teal-dark);">Kontaktformular</strong><br>
+      Wenn Sie das Kontaktformular nutzen, werden die von Ihnen angegebenen Daten (Name, E-Mail, ggf. Telefonnummer und Ihre Nachricht) zur Bearbeitung Ihrer Anfrage per E-Mail an uns übermittelt und dort verarbeitet. Der Versand erfolgt über den Formular-Dienstleister FormSubmit; es gelten dessen Datenschutzhinweise. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anfragebearbeitung) bzw. lit. f (berechtigtes Interesse an einer funktionierenden Kontaktmöglichkeit).</p>
+      <p><strong style="color: var(--teal-dark);">Gesundheitsdaten aus dem Aufklärungsbogen</strong><br>
+      Der zum Download bereitgestellte Anästhesie-Fragebogen wird von Ihnen persönlich zum Vorgespräch mitgebracht und nicht über die Website übermittelt. Die dort erfassten Gesundheitsdaten unterliegen der ärztlichen Schweigepflicht und werden nach den gesetzlichen Vorgaben (u. a. Art. 9 DSGVO) verarbeitet.</p>
+      <p><strong style="color: var(--teal-dark);">Ihre Rechte</strong><br>
+      Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie ein Beschwerderecht bei der zuständigen Aufsichtsbehörde.</p>
+      <p style="font-size: 0.84rem; opacity: 0.85;">Hinweis: Dies ist ein allgemeiner Entwurf und ersetzt keine individuelle Rechtsberatung. Bitte vor Veröffentlichung fachlich prüfen lassen, insbesondere im Hinblick auf die Verarbeitung von Gesundheitsdaten.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="brand" style="color: var(--paper);">Dr. Elias <span style="color: var(--gold);">&</span> Elias</div>
+      <div class="footer-links">
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+    <div>© 2026 BAG Dr. medic Alexandra Elias &amp; Dr. medic Sam Elias — Mobile Anästhesie.</div>
+  </div>
+</footer>
+
+<script>
+  const svg = document.querySelector('.route-svg');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) svg.classList.add('in-view'); });
+  }, { threshold: 0.4 });
+  io.observe(svg);
+</script>
+
+</body>
+</html>
